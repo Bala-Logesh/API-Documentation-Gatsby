@@ -8,5 +8,23 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
-  plugins: [],
-}
+  plugins: [
+    {
+      resolve: `gatsby-transformer-json`
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `applications`,
+        path: `${__dirname}/src/data/applications`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `endpoints`,
+        path: `${__dirname}/src/data/endpoints`,
+      },
+    },
+  ],
+};
