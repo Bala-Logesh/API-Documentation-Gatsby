@@ -1,30 +1,12 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 import EndPoint from "../components/EndPoint";
 import Layout from "../components/Layout";
 
-const endpoints = () => {
-  const endpoint = [
-    {
-      application_id: 1,
-      application: "Posts Website",
-      slug: "posts-website",
-      base_url: "https://jsonplaceholder.typicode.com/posts",
-      endpoint_id: "posts",
-      description: "List of 100 posts in the JSON Placeholder Typicode API",
-      count: 6,
-    },
-    {
-      application_id: 1,
-      application: "Todos Website",
-      slug: "todos-website",
-      base_url: "https://jsonplaceholder.typicode.com/todos",
-      endpoint_id: "todos",
-      description: "List of 100 todos in the JSON Placeholder Typicode API",
-      count: 6,
-    },
-  ];
+const endpoints = ({ data }) => {
 
+  let endpoint = data.allEndpoints.edges;
+  
   return (
     <Layout>
       <Link className="btn btn-2" to="/applications">
@@ -32,7 +14,7 @@ const endpoints = () => {
       </Link>
       <div className="container flex">
         {endpoint.map((ep) => (
-          <EndPoint key={ep.id} ep={ep} isSlugReq={true} />
+          <EndPoint key={ep.node.id} ep={ep.node} isSlugReq={true} />
         ))}
       </div>
     </Layout>
@@ -40,3 +22,21 @@ const endpoints = () => {
 };
 
 export default endpoints;
+
+export const query = graphql`
+  query getAllEndPointsQuery {
+    allEndpoints {
+      edges {
+        node {
+          count
+          description
+          application
+          id
+          base_url
+          slug
+          endpoint_id
+        }
+      }
+    }
+  }
+`;

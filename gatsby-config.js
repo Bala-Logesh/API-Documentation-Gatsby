@@ -10,7 +10,15 @@
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-transformer-json`
+      resolve: `gatsby-transformer-json`,
+      options: {
+        typeName: ({ node, object, isArray }) =>
+          object.application_id
+            ? `Endpoints`
+            : object.authorization
+            ? `Requests`
+            : `Json`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,

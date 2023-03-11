@@ -1,35 +1,11 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, graphql } from "gatsby";
 import Application from "../components/Application";
 import Layout from "../components/Layout";
 
-const applications = () => {
-  const appls = [
-    {
-      id: 1,
-      application: "Posts Website",
-      author: "JSON Placeholder",
-      slug: "posts-website",
-      endpoints: [
-        {
-          endpoint_id: "posts",
-          url: "https://jsonplaceholder.typicode.com/posts",
-        },
-      ],
-    },
-    {
-      id: 2,
-      application: "Todos Website",
-      author: "JSON Placeholder",
-      slug: "todos-website",
-      endpoints: [
-        {
-          endpoint_id: "todos",
-          url: "https://jsonplaceholder.typicode.com/todos",
-        },
-      ],
-    },
-  ];
+const applications = ({ data }) => {
+  
+  const appls = data.allJson.edges;
 
   return (
     <Layout>
@@ -38,7 +14,7 @@ const applications = () => {
       </Link>
       <div className="container flex-column">
         {appls.map((app, index) => (
-          <Application key={index} application={app} />
+          <Application key={index} application={app.node} />
         ))}
       </div>
     </Layout>
@@ -46,3 +22,22 @@ const applications = () => {
 };
 
 export default applications;
+
+export const query = graphql`
+  query getAllApplicationsQuery {
+    allJson {
+      edges {
+        node {
+          application
+          author
+          slug
+          id
+          endpoints {
+            endpoint_id
+            url
+          }
+        }
+      }
+    }
+  }
+`;
