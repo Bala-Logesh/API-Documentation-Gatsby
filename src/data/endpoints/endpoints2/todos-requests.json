@@ -31,7 +31,7 @@
     "slug": "create-todo",
     "description": "Create a new todo",
     "url": "https://jsonplaceholder.typicode.com/todos",
-    "method": "todo",
+    "method": "POST",
     "authorization": "None",
     "body": "{\n    title: 'foo',\n    body: 'bar',\n    userId: 1,\n}",
     "response": [
