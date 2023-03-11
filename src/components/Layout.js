@@ -5,6 +5,7 @@ import "../styles/resets.css";
 import "../styles/utilities.css";
 import "../styles/layout.css";
 import "../styles/home.css";
+import "../styles/card.css";
 
 const Layout = ({ children }) => {
   return (
